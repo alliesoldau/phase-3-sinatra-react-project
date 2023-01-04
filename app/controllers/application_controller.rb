@@ -8,13 +8,6 @@ class ApplicationController < Sinatra::Base
     brackish_tank.to_json(:include => [:food, :environment])
   end
 
-  # game.to_json(only: [:id, :title, :genre, :price], 
-  # include: {
-  #   reviews: { only: [:comment, :score], include: {
-  #     user: { only: [:name] }
-  #   } }
-  # })
-
   get "/salt" do
     salt_tank = Critter.where(environment_id: 2)
     salt_tank.to_json(:include => [:food, :environment])
@@ -25,9 +18,13 @@ class ApplicationController < Sinatra::Base
     fresh_tank.to_json(:include => [:food, :environment])
   end
 
-  # get "/critter/:id" do 
-  #   critter_details = Critter.find(params[:id])
-  #   critter_details.to_json(:include => [:food, :environment])
-  # end
+  get "/environment/:id" do
+    environment = Environment.find(params[:id])
+    environment.to_json
+  end
 
+  get "/food/:id" do
+    environment = Food.find(params[:id])
+    environment.to_json
+  end
 end
