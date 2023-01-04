@@ -13,6 +13,11 @@ class ApplicationController < Sinatra::Base
     brackish_tank.to_json
   end
 
+  get "/brackish/tank/critters" do
+    brackish_tank = Critter.where(mytank_id: 1)
+    brackish_tank.to_json
+  end
+
   get "/salt" do
     salt_tank = Critter.where(mytank_id: 2)
     salt_tank.to_json(:include => [:food, :environment])
@@ -23,6 +28,11 @@ class ApplicationController < Sinatra::Base
     salt_tank.to_json
   end
 
+  get "/salt/tank/critters" do
+    salt_tank = Critter.where(mytank_id: 2)
+    salt_tank.to_json
+  end
+
   get "/fresh" do
     fresh_tank = Critter.where(mytank_id: 3)
     fresh_tank.to_json(:include => [:food, :environment])
@@ -30,6 +40,11 @@ class ApplicationController < Sinatra::Base
 
   get "/fresh/critters" do
     fresh_tank = Critter.where(environment_id: 3)
+    fresh_tank.to_json
+  end
+
+  get "/fresh/tank/critters" do
+    fresh_tank = Critter.where(mytank_id: 3)
     fresh_tank.to_json
   end
 
@@ -63,6 +78,13 @@ class ApplicationController < Sinatra::Base
     )
     critter.to_json
   end
+
+  delete "/critter/delete/:id" do
+    RIP = Critter.find(params[:id])
+    RIP.destroy
+    RIP.to_json
+  end
+
 
 
 end
