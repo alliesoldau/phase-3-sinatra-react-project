@@ -85,6 +85,14 @@ class ApplicationController < Sinatra::Base
     RIP.to_json
   end
 
+  post "/foods" do 
+    new_food = Food.create(
+      food_name: params[:food_name],
+      food_type: params[:food_type]
+    )
+    new_food.to_json
+  end
+
 
 
 end
