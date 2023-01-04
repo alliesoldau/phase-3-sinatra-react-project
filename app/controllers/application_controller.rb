@@ -23,8 +23,26 @@ class ApplicationController < Sinatra::Base
     environment.to_json
   end
 
+  get "/food" do
+    food = Food.all
+    food.to_json
+  end
+
   get "/food/:id" do
     environment = Food.find(params[:id])
     environment.to_json
+  end
+
+  patch "/critter/:id" do 
+    critter = Critter.find(params[:id])
+    critter.update(
+      food_id: params[:food_id]
+    )
+    critter.to_json
+  end
+
+  get "/critter/:id" do 
+    critter = Critter.find(params[:id])
+    critter.to_json
   end
 end
