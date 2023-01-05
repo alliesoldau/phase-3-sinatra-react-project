@@ -65,6 +65,11 @@ class ApplicationController < Sinatra::Base
     fresh_tank_unused.to_json
   end
 
+  get "/critter/:id" do
+    critter = Critter.find(params[:id])
+    critter.to_json
+  end
+
   get "/environment/:id" do
     environment = Environment.find(params[:id])
     environment.to_json
