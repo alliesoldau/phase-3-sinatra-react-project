@@ -110,6 +110,14 @@ class ApplicationController < Sinatra::Base
     new_food.to_json
   end
 
-
+  post "/critters" do 
+    new_critter = Critter.create(
+      critter_name: params[:critter_name],
+      critter_type: params[:critter_type],
+      food_id: params[:food_id],
+      environment_id: params[:environment_id]
+    )
+    new_critter.to_json
+  end
 
 end
