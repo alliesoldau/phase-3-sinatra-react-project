@@ -2,7 +2,6 @@ class ApplicationController < Sinatra::Base
   set :default_content_type, 'application/json'
   
   # Display different tank environments
-  # THE WAY THAT IT IS ALLOWING THE RELATIONSHIP IS NOT WORKING. MAKES THE PAGE NOT LOAD
   get "/brackish" do
     brackish_tank = Critter.where(mytank_id: 1)
     brackish_tank.to_json(:include => [:food, :environment])
@@ -16,6 +15,12 @@ class ApplicationController < Sinatra::Base
   get "/brackish/tank/critters" do
     brackish_tank = Critter.where(mytank_id: 1)
     brackish_tank.to_json
+  end
+
+  get "/brackish/tank/unusedCritters" do
+    brackish_env_critters = Critter.where(environment_id: 1)
+    brackish_tank_unused = brackish_env_critters.where(mytank_id: nil)
+    brackish_tank_unused.to_json
   end
 
   get "/salt" do
@@ -33,6 +38,12 @@ class ApplicationController < Sinatra::Base
     salt_tank.to_json
   end
 
+  get "/salt/tank/unusedCritters" do
+    salt_env_critters = Critter.where(environment_id: 2)
+    salt_tank_unused = salt_env_critters.where(mytank_id: nil)
+    salt_tank_unused.to_json
+  end
+
   get "/fresh" do
     fresh_tank = Critter.where(mytank_id: 3)
     fresh_tank.to_json(:include => [:food, :environment])
@@ -46,6 +57,12 @@ class ApplicationController < Sinatra::Base
   get "/fresh/tank/critters" do
     fresh_tank = Critter.where(mytank_id: 3)
     fresh_tank.to_json
+  end
+
+  get "/fresh/tank/unusedCritters" do
+    fresh_env_critters = Critter.where(environment_id: 2)
+    fresh_tank_unused = fresh_env_critters.where(mytank_id: nil)
+    fresh_tank_unused.to_json
   end
 
   get "/environment/:id" do
